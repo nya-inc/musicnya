@@ -1,0 +1,235 @@
+:root {
+  --font-weight-base: 400;
+  --font-weight-bold: 600;
+  --font-weight-very-bold: 800;
+  --font-size-base: 1rem;
+  --font-size-l: 1.1rem;
+  --font-size-xl: 1.2rem;
+  --letter-spacing-l: 0.01rem;
+  --ketter-spacing-xl: 0.02rem;
+  --letter-spacing-nl: -0.01rem;
+  --ketter-spacing-nxl: -0.02rem;
+}
+
+@mixin lighten() {
+  --background-color: oklch(100% 0 0);
+  --button-active-color: oklch(0% 0 0 / 50%);
+  --font-color: oklch(0% 0 0);
+  --font-color-faded: oklch(30% 0 0);
+  --font-color-very-faded: oklch(50% 0 0);
+  --theme-contrast-color: oklch(0% 0 0);
+  --menu-background-color: var(--font-color-faded);
+  --menu-highlight-color: var(--font-color);
+  --drawer-background-color: oklch(98% 0 0);
+  --ui-background-color: var(--accent-color, oklch(85% 0 0));
+  --drawer-font-color: var(--font-color);
+  --font-color-hover: var(--font-color-faded);
+  --font-color-active: var(--font-color-very-faded);
+  color-scheme: light;
+}
+
+@mixin darken() {
+  --background-color: oklch(20.02% 0 0);
+  --button-active-color: oklch(100% 0 0 / 20%);
+  --font-color: oklch(100% 0 0);
+  --font-color-faded: oklch(70% 0 0);
+  --font-color-very-faded: oklch(60% 0 0);
+  --theme-contrast-color: oklch(100% 0 0);
+  --menu-background-color: var(--font-color-faded);
+  --menu-highlight-color: var(--font-color);
+  --drawer-background-color: oklch(16% 0 0);
+  --ui-background-color: var(--accent-color, oklch(0% 0 0));
+  --drawer-font-color: var(--font-color-faded);
+  --font-color-hover: var(--font-color);
+  --font-color-active: var(--font-color-very-faded);
+  color-scheme: dark;
+}
+
+body.dark {
+  @include darken();
+}
+
+body.light {
+  @include lighten();
+}
+
+.text-xl {
+  font-size: 1.25rem;
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+}
+
+.text-3xl {
+  font-size: 1.75rem;
+}
+
+.text-4xl {
+  font-size: 2rem;
+}
+
+.hover-underline {
+  :hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.hover-pointer {
+  :hover {
+    cursor: pointer;
+  }
+}
+
+[uiButton] {
+  cursor: default;
+  -webkit-app-region: no-drag;
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  padding-inline: 0rem;
+  border-radius: 4px;
+  outline-offset: -0.1rem;
+  align-items: center;
+  background: none;
+  box-shadow: none;
+
+  &:hover:not(:disabled),
+  &:focus:not(:disabled) {
+    i,
+    span {
+      color: var(--font-color-hover);
+    }
+  }
+
+  &:enabled {
+    &:active {
+      i,
+      span {
+        color: var(--font-color-active);
+      }
+    }
+  }
+
+  span,
+  i {
+    color: var(--drawer-font-color);
+  }
+
+  &.ui-button-m {
+    height: 2.25rem;
+    width: 2.25rem;
+  }
+
+  &.ui-button-l {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  &.ui-button-xl {
+    height: 3rem;
+    width: 3rem;
+  }
+}
+
+span,
+.text-base {
+  font-weight: var(--font-weight-base);
+  font-size: var(--font-size-base);
+  font-family: 'Haskoy';
+  transition: opacity 0.15s linear;
+}
+
+.button-active {
+  background-color: var(--button-active-color);
+}
+
+//button
+
+//accordion
+.p-accordion .p-accordion-content {
+  transition: background-color 0.3s linear, border-color 0.3s linear !important;
+  background: var(--background-color-light) !important;
+}
+
+p-accordion
+  .p-accordion
+  p-accordiontab
+  .p-accordion-tab
+  .p-accordion-header-link {
+  border-top-left-radius: 4px !important;
+  border-top-right-radius: 4px !important;
+  border: 0.15rem solid transparent;
+  outline: none;
+  transition: background-color 0.3s linear !important;
+  background-color: var(--background-color-light);
+}
+
+.p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled):hover {
+  transition: background-color 0.3s linear, border-color 0.3s linear !important;
+  background: var(--background-color-light) !important;
+}
+
+.p-accordion-header:hover,
+.p-accordion-header:focus {
+  transition: background-color 0.3s linear, border-color 0.3s linear !important;
+  background: var(--background-color-light) !important;
+}
+
+.p-accordion-header.p-highlight {
+  transition: background-color 0.3s linear, border-color 0.3s linear !important;
+  background: var(--background-color-light) !important;
+
+  .p-accordion-header-link {
+    background: var(--background-color-light) !important;
+  }
+}
+
+.p-accordion
+  p-accordiontab:last-child
+  .p-accordion-header:not(.p-highlight)
+  .p-accordion-header-link {
+  background: var(--background-color-light) !important;
+}
+
+.p-accordion-header:not(.p-highlight):not(.p-disabled):hover
+  .p-accordion-header-link {
+  background: var(--background-color-light) !important;
+}
+
+.p-accordion-tab {
+  .p-accordion-header {
+    background: var(--background-color-light) !important;
+    transition: background-color 0.3s linear !important;
+    border-radius: 4px;
+  }
+
+  .p-accordion-header-text {
+    transition: color 0.2s linear, background-color 0.3s linear,
+      border-color 0.3s linear !important;
+    color: var(--text-color);
+  }
+}
+
+.p-accordion-header-link {
+  transition: background 0.3s linear, border-color 0s linear !important;
+}
+
+//input switch
+.accessibility-container:has(p-inputswitch) {
+  p-inputswitch {
+    .p-inputswitch {
+      &:not(.p-inputswitch-checked) {
+        .p-inputswitch-slider {
+          background: var(--theme-contrast-color) !important;
+          opacity: 0.3;
+        }
+      }
+
+      .p-inputswitch-slider {
+        transition: opacity 0s, background-color 0s linear !important;
+      }
+    }
+  }
+}

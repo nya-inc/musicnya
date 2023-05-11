@@ -1,0 +1,14 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+// eslint-disable-next-line import/no-unresolved
+import { AlbumTileModule, FooterModule } from '@nyan-inc/ui';
+
+@Component({
+  selector: 'musicnya-footer',
+  standalone: true,
+  imports: [CommonModule, FooterModule, AlbumTileModule],
+  templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class FooterComponent {}

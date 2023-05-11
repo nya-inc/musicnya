@@ -1,0 +1,75 @@
+<ui-drawer
+  (drawertoggle)="toggled($event)"
+  [style.--width]="drawerCollapsed ? '3rem' : '10rem'"
+  [style.--drawerPadding]="drawerCollapsed ? '0rem' : '0.2rem'"
+  [style.--albumTileOutline]="drawerCollapsed ? '0.15rem' : '0'"
+  [style.--albumTileOutlineInverse]="drawerCollapsed ? '0' : '0.15rem'"
+>
+  <ng-container header>
+    <ui-drawer-button
+      uiButton
+      header
+      class=".ui-button-m"
+      id="file-menu-button"
+      [tabIndex]="drawerCollapsed ? -1 : 0"
+    >
+      <i class="material-symbols-rounded text-3xl"
+        >more_vert</i
+      ></ui-drawer-button
+    >
+  </ng-container>
+  <ng-container content>
+    <div class="content-container">
+      <ui-drawer-item
+        id="file-menu-drawer-button"
+        [style.pointer-events]="drawerCollapsed ? 'none' : 'auto'"
+        [tabIndex]="drawerCollapsed ? 0 : -1"
+        [style.margin-top]="drawerCollapsed ? '-3.5rem' : '-5rem'"
+        icon="more_vert"
+      ></ui-drawer-item>
+      <div
+        id="margin-div"
+        [style.margin-top]="drawerCollapsed ? '3.5rem' : '0rem'"
+      ></div>
+      <ui-drawer-item id="home-button" text="Home" icon="home"></ui-drawer-item>
+      <ui-drawer-item text="Search" icon="search"></ui-drawer-item>
+      <ui-drawer-item text="Library" icon="library_music"></ui-drawer-item>
+      <ui-drawer-item text="New Playlist" icon="add_box"></ui-drawer-item>
+      <ui-drawer-item text="Liked Songs" icon="thumb_up"></ui-drawer-item>
+      <div class="drawer-divider"></div>
+    </div>
+  </ng-container>
+  <ng-container footer>
+    <div class="footer-container">
+      <ui-album-tile
+        title="Playlist 1"
+        source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
+      ></ui-album-tile>
+      <ui-album-tile
+        title="Playlist 1"
+        source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
+      ></ui-album-tile>
+      <ui-album-tile
+        title="Playlist 1"
+        source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
+      ></ui-album-tile>
+      <ui-album-tile
+        title="Playlist 1"
+        source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
+      ></ui-album-tile>
+      <ui-album-tile
+        title="Playlist 1"
+        source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
+      ></ui-album-tile>
+      <ui-album-tile
+        title="Playlist 1"
+        source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
+      ></ui-album-tile>
+      <ui-album-tile
+        title="Playlist 1"
+        source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
+      ></ui-album-tile>
+    </div>
+  </ng-container>
+  <ng-content body-content></ng-content>
+</ui-drawer>

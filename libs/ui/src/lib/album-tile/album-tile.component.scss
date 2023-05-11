@@ -1,0 +1,29 @@
+:host {
+  .artwork {
+    border-radius: 4px;
+    margin-right: 0.6rem;
+  }
+
+  .album-tile {
+    display: flex;
+    padding-block: 0;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .album-info {
+    line-height: 1.2;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .title {
+    font-size: var(--font-size-l);
+    white-space: nowrap;
+  }
+
+  .artist {
+    font-size: 0.95rem;
+    color: var(--font-color-faded);
+  }
+}

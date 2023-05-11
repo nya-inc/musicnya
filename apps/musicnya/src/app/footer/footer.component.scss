@@ -1,0 +1,15 @@
+:host {
+  z-index: 99 !important;
+
+  ::ng-deep {
+    color: var(--font-color);
+  }
+
+  ::ng-deep ui-album-tile {
+    filter: drop-shadow(0rem 0.3rem 0.5rem rgba(black, 0.4));
+
+    .artwork {
+      margin-right: 1rem !important;
+    }
+  }
+}

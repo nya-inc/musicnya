@@ -8,13 +8,21 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
-    "module": "esnext",
+    "target": "ESNext",
+    "module": "ESNext",
     "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nyan-inc/core": ["libs/core/src/index.ts"],
+      "@nyan-inc/musickit": ["libs/musickit/src/index.ts"],
+      "@nyan-inc/musickitjs-typescript": [
+        "libs/musickitjs-typescript/src/index.ts"
+      ],
+      "@nyan-inc/test": ["libs/test/src/index.ts"],
+      "@nyan-inc/ui": ["libs/ui/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

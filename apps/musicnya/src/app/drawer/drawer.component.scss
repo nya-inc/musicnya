@@ -1,0 +1,71 @@
+:host {
+  #file-menu-drawer-button {
+    transition: margin 0.6s cubic-bezier(0.165, 1, 0.165, 1),
+      opacity 0.1s linear;
+    position: absolute !important;
+    display: block;
+  }
+
+  #margin-div {
+    transition: margin 0.4s cubic-bezier(0.165, 1, 0.4, 1), opacity 0.1s linear;
+  }
+
+  #home-button {
+    position: relative;
+  }
+
+  #file-menu-button {
+    transition: opacity 0.1s linear;
+  }
+
+  .drawer-divider {
+    margin-top: 0.2rem;
+    margin-bottom: 0rem;
+    margin-inline: 0.2rem;
+    margin-right: 0.4rem;
+    border-top: 2px solid rgba(grey, 0.6);
+    opacity: 0.2;
+  }
+
+  .content-container {
+    position: sticky;
+    margin-left: 0.4rem;
+  }
+
+  .footer-container {
+    position: sticky;
+    margin-left: 0.15rem;
+
+    ::ng-deep :last-child:first-child {
+      margin-bottom: 0.2rem;
+    }
+  }
+
+  ::ng-deep ui-drawer-item > button,
+  ::ng-deep ui-album-tile > button {
+    width: calc(var(--width) - 1rem) !important;
+    justify-content: flex-start;
+    margin-block: 0.7rem;
+    margin-left: 0.05rem;
+    padding-left: 0.25rem;
+    transition: margin 0.6s cubic-bezier(0.165, 1, 0.165, 1),
+      padding 0.6s cubic-bezier(0.165, 1, 0.165, 1);
+  }
+
+  ::ng-deep ui-album-tile {
+    > button {
+      outline-offset: 0.1rem;
+      margin-left: -0.05rem;
+      margin-block: 0.6rem;
+      padding-left: 0.085rem;
+    }
+
+    :focus-visible {
+      outline: var(--albumTileOutlineInverse) solid var(--theme-contrast-color);
+
+      img {
+        outline: var(--albumTileOutline) solid var(--theme-contrast-color);
+      }
+    }
+  }
+}
