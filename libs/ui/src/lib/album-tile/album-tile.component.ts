@@ -1,12 +1,13 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   NgModule,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { JoinPipe } from '@nyan-inc/core';
 import { UIButtonDirective } from '../directives/uibutton.directive';
+import { JoinPipeModule } from '@nyan-inc/core';
 
 @Component({
   selector: 'ui-album-tile',
@@ -14,7 +15,9 @@ import { UIButtonDirective } from '../directives/uibutton.directive';
     <button
       uiButton
       class="album-tile ui-drawer-item"
+      [ngClass]="albumStyleClass"
       [ngClass]="{ 'hover-pointer': hoverUnderline }"
+      [ngClass]="buttonStyleClass"
     >
       <img
         class="artwork"
@@ -25,11 +28,12 @@ import { UIButtonDirective } from '../directives/uibutton.directive';
       />
       <div
         class="album-info"
+        *ngIf="title || showArtists"
         [style.display]="showArtists ? 'flex' : 'block'"
         [ngClass]="{ 'hover-underline': hoverUnderline }"
       >
-        <span class="title">{{ title }}</span>
-        <span class="artist" *ngIf="showArtists">{{ artists | joinPipe }}</span>
+        <span class="title" *ngIf="title">{{ title }}</span>
+        <span class="artist" *ngIf="showArtists">{{ artists | join }}</span>
       </div>
     </button>
   `,
@@ -44,14 +48,19 @@ export class AlbumTileComponent {
   @Input() tileSize = 2;
   @Input() showArtists = this.artists ? true : false;
   @Input() hoverUnderline = false;
+  @Input() buttonStyleClass!: string;
+  @Input() albumStyleClass!: string;
 
-  sayHi() {
-    console.log('hi');
+  constructor(private reference: ChangeDetectorRef) {}
+
+  setClass(collapsed: boolean) {
+    this.albumStyleClass = collapsed ? 'collapsed' : 'expanded';
+    this.reference.markForCheck();
   }
 }
 
 @NgModule({
-  imports: [CommonModule, JoinPipe, UIButtonDirective],
+  imports: [CommonModule, UIButtonDirective, JoinPipeModule],
   exports: [AlbumTileComponent],
   declarations: [AlbumTileComponent],
 })

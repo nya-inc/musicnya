@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { UIButtonDirective } from './uibutton.directive';
 
 describe('UIButtonDirective', () => {

@@ -1,7 +1,7 @@
 :host {
   .artwork {
     border-radius: 4px;
-    margin-right: 0.6rem;
+    margin-right: 1rem;
   }
 
   .album-tile {
@@ -18,11 +18,14 @@
   }
 
   .title {
-    font-size: var(--font-size-l);
+    font-size: var(--font-size-2xl);
+    letter-spacing: var(--letter-spacing-n4xl);
     white-space: nowrap;
   }
 
   .artist {
+    font-size: var(--font-size-xl);
+    letter-spacing: var(--letter-spacing-n1xl);
     font-size: 0.95rem;
     color: var(--font-color-faded);
   }

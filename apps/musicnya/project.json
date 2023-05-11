@@ -19,7 +19,6 @@
           "includePaths": ["src/assets/styles", "libs/ui/src/lib/assets/styles"]
         },
         "styles": [
-          "node_modules/primeflex/primeflex.css",
           "apps/musicnya/src/assets/styles/styles.scss",
           "libs/ui/src/lib/assets/styles/ui_styles.scss"
         ],

@@ -2,9 +2,11 @@
 @use 'fonts';
 @use 'ui_styles';
 
-html {
+html,
+body {
   height: 100vh;
   user-select: none;
+  background-color: var(--ui-background-color);
 }
 
 body {
@@ -13,8 +15,4 @@ body {
 
 * {
   box-sizing: border-box;
-
-  :focus-visible {
-    outline: 0.15rem solid var(--theme-contrast-color);
-  }
 }

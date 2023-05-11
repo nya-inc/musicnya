@@ -6,6 +6,8 @@
   right: 0;
   width: 100vw;
   height: 4.375rem;
+  max-height: 4.375rem;
+  margin-top: 1rem;
   transition: var(--enable-background-transition);
   background-color: var(--ui-background-color);
   z-index: 100;
