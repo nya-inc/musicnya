@@ -5,9 +5,6 @@ import { NxWelcomeComponent } from './nx-welcome.component';
 import { DrawerComponent } from './drawer/drawer.component';
 import { FooterComponent } from './footer/footer.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { UIButtonDirective } from '@nyan-inc/ui';
-
-export type DrawerEvent = { detail: { collapsed: boolean; width: number } };
 
 @Component({
   standalone: true,

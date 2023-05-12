@@ -1,24 +1,21 @@
 import {
-  AfterContentInit,
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ContentChildren,
   ElementRef,
-  HostBinding,
   HostListener,
   Input,
   NgModule,
   QueryList,
-  ViewChildren,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { UIButtonDirective } from '../directives/uibutton.directive';
-import { DrawerEvent } from '../../../../../apps/musicnya/src/app/app.component';
 import { map, Subscription, tap } from 'rxjs';
 import { AlbumTileComponent } from '../album-tile/album-tile.component';
+import { DrawerEvent } from '@nyan-inc/core';
 
 @Component({
   selector: 'ui-drawer-item',
@@ -115,7 +112,10 @@ export class DrawerItemComponent {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DrawerComponent extends EventTarget implements AfterViewInit {
-  constructor(public reference: ElementRef) {
+  constructor(
+    public reference: ElementRef,
+    private changeReference: ChangeDetectorRef
+  ) {
     super();
   }
 
@@ -191,7 +191,6 @@ export class DrawerComponent extends EventTarget implements AfterViewInit {
   }
 
   public set collapsed(value: boolean) {
-    console.log(this._drawerItems);
     this._collapsed = value;
 
     if (this.items) {

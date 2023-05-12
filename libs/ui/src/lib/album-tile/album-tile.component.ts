@@ -28,12 +28,12 @@ import { JoinPipeModule } from '@nyan-inc/core';
       />
       <div
         class="album-info"
-        *ngIf="title || showArtists"
+        *ngIf="mediaTitle || showArtists"
         [style.display]="showArtists ? 'flex' : 'block'"
         [ngClass]="{ 'hover-underline': hoverUnderline }"
       >
-        <span class="title" *ngIf="title">{{ title }}</span>
-        <span class="artist" *ngIf="showArtists">{{ artists | join }}</span>
+        <span class="mediaTitle" *ngIf="mediaTitle">{{ mediaTitle }}</span>
+        <span class="artists" *ngIf="showArtists">{{ artists | join }}</span>
       </div>
     </button>
   `,
@@ -43,7 +43,7 @@ import { JoinPipeModule } from '@nyan-inc/core';
 export class AlbumTileComponent {
   @Input() type!: string;
   @Input() source!: string;
-  @Input() title!: string;
+  @Input() mediaTitle!: string;
   @Input() artists!: string[];
   @Input() tileSize = 2;
   @Input() showArtists = this.artists ? true : false;

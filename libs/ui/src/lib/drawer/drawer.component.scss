@@ -35,7 +35,7 @@
   }
 
   ::ng-deep .drawer-text {
-    padding-left: 0.8rem;
+    padding-left: 1rem;
     font-size: var(--font-size-xl);
     letter-spacing: var(--letter-spacing-nl);
     white-space: nowrap;
@@ -142,18 +142,34 @@
     width: 90%;
   }
 
-  .ui-drawer:not(.drawer-expanded) ui-album-tile {
-    button {
-      width: auto;
-    }
+  ui-album-tile button:not(.collapsed) {
+    width: auto;
+  }
+
+  .drawer-text {
+    transition: opacity 0.1s linear, padding 0.1s linear;
+    padding: 0;
   }
 
   &.collapsed,
   button.collapsed {
-    width: auto;
+    .drawer-text,
+    .album-info {
+      padding: 0 !important;
+    }
 
-    span {
-      display: none;
+    ui-drawer-item button.collapsed {
+      width: 40%;
+    }
+
+    span,
+    .album-info {
+      opacity: 0;
+      width: 0;
+    }
+
+    .album-info {
+      transition: opacity 0.1s linear, padding 0.2s linear;
     }
   }
 }

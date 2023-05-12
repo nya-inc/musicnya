@@ -1,6 +1,7 @@
 import {
   AfterViewInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   ViewChild,
@@ -23,7 +24,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DrawerComponent extends EventTarget implements AfterViewInit {
-  constructor() {
+  constructor(private changeReference: ChangeDetectorRef) {
     super();
   }
 
@@ -34,6 +35,7 @@ export class DrawerComponent extends EventTarget implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.collapsed = this.parentDrawer.collapsed;
+    this.changeReference.markForCheck();
   }
 
   toggle() {
@@ -45,5 +47,6 @@ export class DrawerComponent extends EventTarget implements AfterViewInit {
     (this.parentDrawer.reference.nativeElement as HTMLElement).dispatchEvent(
       toggleEvent
     );
+    this.changeReference.markForCheck();
   }
 }

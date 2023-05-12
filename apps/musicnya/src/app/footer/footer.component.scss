@@ -9,13 +9,26 @@
     margin-left: 0.485rem;
     filter: drop-shadow(0rem 0.3rem 0.5rem rgba(black, 0.4));
 
+    .album-info {
+      vertical-align: middle !important;
+    }
+
     .artist,
-    .title {
+    .mediaTitle {
       color: var(--font-color);
     }
 
     .artwork {
-      margin-right: 1rem !important;
+      margin-left: 0.5rem;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+
+    .artwork,
+    .album-info {
+      margin-bottom: 0.6rem;
     }
   }
 }

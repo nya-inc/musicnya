@@ -15,6 +15,7 @@
   --letter-spacing-n2xl: -0.03rem;
   --letter-spacing-n3xl: -0.04rem;
   --letter-spacing-n4xl: -0.05rem;
+  --letter-spacing-n5xl: -0.05rem;
 }
 
 @mixin lighten() {
@@ -59,28 +60,48 @@ body.light {
   @include lighten();
 }
 
+.mediaTitle {
+  font-size: var(--font-size-xl);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: auto;
+}
+
+.artists {
+  font-size: var(--font-size-reg);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: auto;
+  color: var(--font-color-faded);
+}
+
 .text-reg {
   font-size: var(--font-size-reg) !important;
 }
 
 .text-xl {
   font-size: var(--font-size-xl) !important;
+  letter-spacing: var(--letter-spacing-nxl) !important;
 }
 
 .text-2xl {
   font-size: var(--font-size-2xl) !important;
+  letter-spacing: var(--letter-spacing-n2xl) !important;
 }
 
 .text-3xl {
   font-size: var(--font-size-3xl) !important;
+  letter-spacing: var(--letter-spacing-n3xl) !important;
 }
 
 .text-4xl {
   font-size: var(--font-size-4xl) !important;
+  letter-spacing: var(--letter-spacing-n4xl) !important;
 }
 
-.text-4xl {
+.text-5xl {
   font-size: var(--font-size-5xl) !important;
+  letter-spacing: var(--letter-spacing-n5xl) !important;
 }
 
 .hover-underline {

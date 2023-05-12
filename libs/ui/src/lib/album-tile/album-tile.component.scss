@@ -1,12 +1,10 @@
 :host {
   .artwork {
     border-radius: 4px;
-    margin-right: 1rem;
   }
 
   .album-tile {
     display: flex;
-    padding-block: 0;
     align-items: center;
     justify-content: flex-start;
   }
@@ -15,18 +13,6 @@
     line-height: 1.2;
     flex-direction: column;
     align-items: flex-start;
-  }
-
-  .title {
-    font-size: var(--font-size-2xl);
-    letter-spacing: var(--letter-spacing-n4xl);
-    white-space: nowrap;
-  }
-
-  .artist {
-    font-size: var(--font-size-xl);
-    letter-spacing: var(--letter-spacing-n1xl);
-    font-size: 0.95rem;
-    color: var(--font-color-faded);
+    padding-left: 1rem;
   }
 }
