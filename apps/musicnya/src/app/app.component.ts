@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { DrawerComponent } from './drawer/drawer.component';
 import { FooterComponent } from './footer/footer.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { WindowEventsService } from '@nyan-inc/core';
 
 @Component({
   standalone: true,
@@ -20,6 +21,7 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
+  constructor(private windowEvents: WindowEventsService) {}
   width!: number;
   title = 'musicnya';
 }

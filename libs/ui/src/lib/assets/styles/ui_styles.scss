@@ -1,7 +1,9 @@
 :root {
   --font-weight-base: 400;
-  --font-weight-bold: 600;
-  --font-weight-very-bold: 800;
+  --font-weight-slightly-bold: 425;
+  --font-weight-bold: 500;
+  --font-weight-medium-bold: 600;
+  --font-weight-large-bold: 800;
   --font-size-reg: 1rem;
   --font-size-xl: 1.15rem;
   --font-size-2xl: 1.3rem;
@@ -9,7 +11,11 @@
   --font-size-4xl: 1.6rem;
   --font-size-5xl: 1.75rem;
   --font-size-6xl: 2rem;
+  --font-size-6qxl: 2.25rem;
+  --font-size-6hxl: 2.5rem;
+  --font-size-6hhxl: 2.75rem;
   --font-size-7xl: 3rem;
+  --font-size-7hxl: 3rem;
   --font-size-8xl: 4rem;
   --letter-spacing-l: 0.01rem;
   --ketter-spacing-xl: 0.02rem;
@@ -68,18 +74,14 @@ body.light {
   @include lighten();
 }
 
-span {
-  color: var(--font-color) !important;
-}
-
-.mediaTitle {
+#title {
   font-size: var(--font-size-xl);
   white-space: nowrap;
   text-overflow: ellipsis;
   width: auto;
 }
 
-.artists {
+#artists {
   font-size: var(--font-size-reg);
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -140,7 +142,6 @@ span {
 
 .hover-pointer {
   :hover {
-    cursor: pointer;
   }
 }
 

@@ -3,7 +3,8 @@ button {
   -webkit-app-region: no-drag;
   height: auto;
   width: auto;
-  display: inline-flex;
+  display: flex;
+  flex-direction: inherit;
   padding: 0;
   border: none;
   border-radius: 4px;

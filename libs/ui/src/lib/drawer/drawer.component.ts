@@ -14,6 +14,7 @@ import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { Subscription, tap } from 'rxjs';
 import { BaseComponent, DrawerEvent } from '@nyan-inc/core';
+import { UtilitiesService } from 'libs/core/src/lib/utilities.service';
 
 @Component({
   selector: 'ui-drawer',
@@ -78,7 +79,8 @@ import { BaseComponent, DrawerEvent } from '@nyan-inc/core';
 export class DrawerComponent extends EventTarget implements AfterViewInit {
   constructor(
     public reference: ElementRef,
-    private changeReference: ChangeDetectorRef
+    private changeReference: ChangeDetectorRef,
+    private utilities: UtilitiesService
   ) {
     super();
   }
@@ -134,6 +136,7 @@ export class DrawerComponent extends EventTarget implements AfterViewInit {
   @HostListener('drawertoggle', ['$event'])
   onToggle(event: DrawerEvent) {
     this.collapsed = event.detail.collapsed;
+    setTimeout(() => this.utilities.triggerCheck(), 95);
   }
 
   public get collapsed() {

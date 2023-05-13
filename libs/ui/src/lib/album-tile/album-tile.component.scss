@@ -3,7 +3,7 @@
     &:hover:not(:disabled),
     &:focus:not(:disabled) {
       i,
-      span:not(.artists) {
+      span:not(#artists) {
         color: var(--font-color-hover);
       }
     }
@@ -11,13 +11,13 @@
     &:enabled {
       &:active {
         i,
-        span:not(.artists) {
+        span:not(#artists) {
           color: var(--font-color-active);
         }
       }
     }
 
-    span:not(.artists),
+    span:not(#artists),
     i {
       color: var(--drawer-font-color);
     }
@@ -27,8 +27,9 @@
     border-radius: 4px;
   }
 
-  .artwork {
+  #artwork {
     border-radius: 4px;
+    cursor: pointer;
   }
 
   .album-tile {
@@ -38,9 +39,31 @@
     color: var(--font-color);
   }
 
-  .album-info {
-    line-height: 1.2;
+  .album-tile-large {
     flex-direction: column;
+    display: block;
+
+    #title {
+      color: var(--font-color);
+    }
+
+    #album-info-large {
+      flex-direction: column;
+    }
+  }
+
+  #album-info,
+  #album-info-large {
+    display: block;
+    flex-direction: column;
+    #artists,
+    #title {
+      width: min-content;
+    }
+  }
+
+  #album-info {
+    line-height: 1.2;
     align-items: flex-start;
     padding-left: 1rem;
     transition: opacity 0.1s linear, padding 0.2s linear;

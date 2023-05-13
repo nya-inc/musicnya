@@ -3,6 +3,7 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
+  HostBinding,
   Input,
   NgModule,
   QueryList,
@@ -10,6 +11,80 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseComponent, JoinPipeModule } from '@nyan-inc/core';
+import { Router } from '@angular/router';
+
+@Component({
+  selector: 'ui-album-tile-large',
+  template: `
+    <base-button
+      #button
+      [tabIndex]="0"
+      class="album-tile-large"
+      [ngClass]="{ 'hover-pointer': hoverUnderline }"
+    >
+      <img
+        id="artwork"
+        alt="{{ type }} art"
+        [style.width.rem]="tileSize"
+        [style.height.rem]="tileSize"
+        [src]="source"
+      />
+      <div
+        id="album-info-large"
+        #span
+        *ngIf="mediaTitle || showArtists"
+        [style.display]="showArtists ? 'flex' : 'block'"
+        [ngClass]="{ 'hover-underline': hoverUnderline }"
+      >
+        <ng-container *ngIf="mediaTitle">
+          <span #span id="title">{{ mediaTitle }}</span></ng-container
+        >
+        <ng-container *ngIf="showArtists">
+          <span #span id="artists">{{ artists | join }}</span>
+        </ng-container>
+      </div>
+    </base-button>
+  `,
+  styleUrls: ['./album-tile.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: BaseComponent, useExisting: AlbumTileLargeComponent }],
+})
+export class AlbumTileLargeComponent extends BaseComponent {
+  @Input() type!: string;
+  @Input() source!: string;
+  @Input() mediaTitle!: string;
+  @Input() artists!: string[];
+  @Input() tileSize = 2;
+  @Input() showArtists = this.artists ? true : false;
+  @Input() hoverUnderline = false;
+  @ViewChildren('span', { read: ElementRef })
+  spanElements!: QueryList<ElementRef>;
+  @HostBinding('class') class = 'outline-offset';
+
+  @ViewChildren('button', { read: ElementRef })
+  buttonElements!: QueryList<ElementRef>;
+
+  constructor(
+    protected changeDetector: ChangeDetectorRef,
+    elementReference: ElementRef,
+    router: Router
+  ) {
+    super(changeDetector, elementReference, router);
+  }
+
+  override toggleButtonWidth(): void {
+    console.log(this.buttonElements);
+    for (const item of this.buttonElements) {
+      if ((item.nativeElement as HTMLElement).style.width === '') {
+        (item.nativeElement as HTMLElement).style.width = 'auto';
+      }
+      (item.nativeElement as HTMLElement).style.width =
+        (item.nativeElement as HTMLElement).style.width == 'auto'
+          ? '90%'
+          : 'auto';
+    }
+  }
+}
 
 @Component({
   selector: 'ui-album-tile',
@@ -18,27 +93,27 @@ import { BaseComponent, JoinPipeModule } from '@nyan-inc/core';
       #button
       [tabIndex]="0"
       class="album-tile ui-drawer-item"
-      [ngClass]="{ 'hover-pointer': hoverUnderline }"
+      [ngClass]=""
     >
       <img
-        class="artwork"
+        id="artwork"
         alt="{{ type }} art"
         [style.max-width.rem]="tileSize"
         [style.max-height.rem]="tileSize"
         [src]="source"
       />
       <div
-        class="album-info"
+        id="album-info"
         #span
         *ngIf="mediaTitle || showArtists"
         [style.display]="showArtists ? 'flex' : 'block'"
         [ngClass]="{ 'hover-underline': hoverUnderline }"
       >
         <ng-container *ngIf="mediaTitle">
-          <span #span class="mediaTitle">{{ mediaTitle }}</span></ng-container
+          <span #span id="title">{{ mediaTitle }}</span></ng-container
         >
         <ng-container *ngIf="showArtists">
-          <span #span class="artists">{{ artists | join }}</span>
+          <span #span id="artists">{{ artists | join }}</span>
         </ng-container>
       </div>
     </base-button>
@@ -63,9 +138,10 @@ export class AlbumTileComponent extends BaseComponent {
 
   constructor(
     protected changeDetector: ChangeDetectorRef,
-    elementReference: ElementRef
+    elementReference: ElementRef,
+    router: Router
   ) {
-    super(changeDetector, elementReference);
+    super(changeDetector, elementReference, router);
   }
 
   override toggleButtonWidth(): void {
@@ -84,7 +160,7 @@ export class AlbumTileComponent extends BaseComponent {
 
 @NgModule({
   imports: [CommonModule, JoinPipeModule],
-  exports: [AlbumTileComponent],
-  declarations: [AlbumTileComponent],
+  exports: [AlbumTileComponent, AlbumTileLargeComponent],
+  declarations: [AlbumTileComponent, AlbumTileLargeComponent],
 })
 export class AlbumTileModule {}

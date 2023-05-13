@@ -47,6 +47,7 @@
   .drawer-scroller,
   .content-scroller {
     --scrollbar-size: 6px;
+    --scrollbar-padding: 0px;
     --scrollbar-thumb-color: var(--font-color-faded2);
     --scrollbar-thumb-hover-color: var(--font-color-faded);
     --scrollbar-border-radius: 4px;

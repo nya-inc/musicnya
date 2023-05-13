@@ -5,13 +5,16 @@ import {
   HostBinding,
   Input,
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Directive()
 export abstract class BaseComponent {
   constructor(
     private changeReference: ChangeDetectorRef,
-    public elementReference: ElementRef
+    public elementReference: ElementRef,
+    public router: Router
   ) {}
+
   componentStyleClass!: string;
   @HostBinding('id') @Input() id = 'baseComponent';
 

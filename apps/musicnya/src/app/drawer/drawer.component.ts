@@ -14,11 +14,18 @@ import {
   DrawerModule,
 } from '@nyan-inc/ui';
 import { BaseButtonModule } from '@nyan-inc/core';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'musicnya-drawer',
   standalone: true,
-  imports: [CommonModule, DrawerModule, AlbumTileModule, BaseButtonModule],
+  imports: [
+    CommonModule,
+    DrawerModule,
+    AlbumTileModule,
+    BaseButtonModule,
+    RouterModule,
+  ],
   templateUrl: './drawer.component.html',
   styleUrls: ['./drawer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

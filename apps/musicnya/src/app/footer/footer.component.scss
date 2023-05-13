@@ -6,9 +6,13 @@
   }
 
   #start-container {
-    margin-left: 0.5rem;
     display: flex;
     vertical-align: middle;
+    ::ng-deep {
+      span {
+        letter-spacing: var(--letter-spacing-n2xl);
+      }
+    }
   }
 
   ::ng-deep #start-container ui-album-tile {
@@ -19,19 +23,19 @@
       vertical-align: middle !important;
     }
 
-    .artist,
-    .mediaTitle {
+    #artist,
+    #title {
       color: var(--font-color);
     }
 
-    .artwork {
+    #artwork {
       &:hover {
         cursor: pointer;
       }
     }
 
-    .artwork,
-    .album-info {
+    #artwork,
+    #album-info {
       margin-bottom: 0.6rem;
     }
   }

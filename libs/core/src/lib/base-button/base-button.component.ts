@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BaseComponent } from '../base-component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'base-button',
@@ -51,8 +52,12 @@ export class BaseButtonComponent extends BaseComponent {
   @ViewChildren('button', { read: ElementRef })
   buttonElements!: QueryList<ElementRef>;
 
-  constructor(reference: ChangeDetectorRef, elementReference: ElementRef) {
-    super(reference, elementReference);
+  constructor(
+    reference: ChangeDetectorRef,
+    elementReference: ElementRef,
+    router: Router
+  ) {
+    super(reference, elementReference, router);
   }
 }
 
