@@ -12,13 +12,13 @@ import {
   AlbumTileModule,
   DrawerComponent as ParentDrawer,
   DrawerModule,
-  NyaButtonModule,
 } from '@nyan-inc/ui';
+import { BaseButtonModule } from '@nyan-inc/core';
 
 @Component({
   selector: 'musicnya-drawer',
   standalone: true,
-  imports: [CommonModule, DrawerModule, AlbumTileModule, NyaButtonModule],
+  imports: [CommonModule, DrawerModule, AlbumTileModule, BaseButtonModule],
   templateUrl: './drawer.component.html',
   styleUrls: ['./drawer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

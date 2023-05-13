@@ -1,0 +1,37 @@
+#heading-text {
+  letter-spacing: var(--letter-spacing-n4xl);
+}
+
+.small {
+  #heading-text {
+    font-size: var(--font-size-reg);
+  }
+}
+
+.medium {
+  #heading-text {
+    font-size: var(--font-size-4xl);
+    letter-spacing: var(--letter-spacing-n4xl);
+  }
+}
+
+.large {
+  #heading-text {
+    font-size: var(--font-size-6xl);
+    letter-spacing: var(--letter-spacing-n6xl);
+  }
+}
+
+.xl {
+  #heading-text {
+    font-size: var(--font-size-7xl);
+    letter-spacing: var(--letter-spacing-n7xl);
+  }
+}
+
+.xxl {
+  #heading-text {
+    font-size: var(--font-size-8xl);
+    letter-spacing: var(--letter-spacing-n8xl);
+  }
+}

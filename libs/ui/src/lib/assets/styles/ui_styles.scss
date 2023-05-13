@@ -8,6 +8,9 @@
   --font-size-3xl: 1.45rem;
   --font-size-4xl: 1.6rem;
   --font-size-5xl: 1.75rem;
+  --font-size-6xl: 2rem;
+  --font-size-7xl: 3rem;
+  --font-size-8xl: 4rem;
   --letter-spacing-l: 0.01rem;
   --ketter-spacing-xl: 0.02rem;
   --letter-spacing-nl: -0.01rem;
@@ -16,6 +19,9 @@
   --letter-spacing-n3xl: -0.04rem;
   --letter-spacing-n4xl: -0.05rem;
   --letter-spacing-n5xl: -0.05rem;
+  --letter-spacing-n6xl: -0.05rem;
+  --letter-spacing-n7xl: -0.06rem;
+  --letter-spacing-n8xl: -0.07rem;
 }
 
 @mixin lighten() {
@@ -23,7 +29,8 @@
   --button-active-color: oklch(0% 0 0 / 50%);
   --font-color: oklch(0% 0 0);
   --font-color-faded: oklch(30% 0 0);
-  --font-color-very-faded: oklch(50% 0 0);
+  --font-color-faded2: oklch(50% 0 0);
+  --font-color-faded3: oklch(70% 0 0);
   --theme-contrast-color: oklch(0% 0 0);
   --menu-background-color: var(--font-color-faded);
   --menu-highlight-color: var(--font-color);
@@ -31,7 +38,7 @@
   --ui-background-color: var(--accent-color, oklch(85% 0 0));
   --drawer-font-color: var(--font-color);
   --font-color-hover: var(--font-color-faded);
-  --font-color-active: var(--font-color-very-faded);
+  --font-color-active: var(--font-color-faded2);
   color-scheme: light;
 }
 
@@ -40,7 +47,8 @@
   --button-active-color: oklch(100% 0 0 / 20%);
   --font-color: oklch(100% 0 0);
   --font-color-faded: oklch(70% 0 0);
-  --font-color-very-faded: oklch(60% 0 0);
+  --font-color-faded2: oklch(60% 0 0);
+  --font-color-faded3: oklch(50% 0 0);
   --theme-contrast-color: oklch(100% 0 0);
   --menu-background-color: var(--font-color-faded);
   --menu-highlight-color: var(--font-color);
@@ -48,7 +56,7 @@
   --ui-background-color: var(--accent-color, oklch(0% 0 0));
   --drawer-font-color: var(--font-color-faded);
   --font-color-hover: var(--font-color);
-  --font-color-active: var(--font-color-very-faded);
+  --font-color-active: var(--font-color-faded2);
   color-scheme: dark;
 }
 
@@ -58,6 +66,10 @@ body.dark {
 
 body.light {
   @include lighten();
+}
+
+span {
+  color: var(--font-color) !important;
 }
 
 .mediaTitle {
@@ -76,32 +88,47 @@ body.light {
 }
 
 .text-reg {
-  font-size: var(--font-size-reg) !important;
+  font-size: var(--font-size-reg);
 }
 
 .text-xl {
-  font-size: var(--font-size-xl) !important;
-  letter-spacing: var(--letter-spacing-nxl) !important;
+  font-size: var(--font-size-xl);
+  letter-spacing: var(--letter-spacing-nxl);
 }
 
 .text-2xl {
-  font-size: var(--font-size-2xl) !important;
-  letter-spacing: var(--letter-spacing-n2xl) !important;
+  font-size: var(--font-size-2xl);
+  letter-spacing: var(--letter-spacing-n2xl);
 }
 
 .text-3xl {
-  font-size: var(--font-size-3xl) !important;
-  letter-spacing: var(--letter-spacing-n3xl) !important;
+  font-size: var(--font-size-3xl);
+  letter-spacing: var(--letter-spacing-n3xl);
 }
 
 .text-4xl {
-  font-size: var(--font-size-4xl) !important;
-  letter-spacing: var(--letter-spacing-n4xl) !important;
+  font-size: var(--font-size-4xl);
+  letter-spacing: var(--letter-spacing-n4xl);
 }
 
 .text-5xl {
-  font-size: var(--font-size-5xl) !important;
-  letter-spacing: var(--letter-spacing-n5xl) !important;
+  font-size: var(--font-size-5xl);
+  letter-spacing: var(--letter-spacing-n5xl);
+}
+
+.text-6xl {
+  font-size: var(--font-size-6xl);
+  letter-spacing: var(--letter-spacing-n6xl);
+}
+
+.text-7xl {
+  font-size: var(--font-size-7xl);
+  letter-spacing: var(--letter-spacing-n7xl);
+}
+
+.text-8xl {
+  font-size: var(--font-size-8xl);
+  letter-spacing: var(--letter-spacing-n8xl);
 }
 
 .hover-underline {
@@ -124,59 +151,6 @@ body.light {
 .outline-offset {
   * {
     outline-offset: 0.3rem;
-  }
-}
-
-[uiButton] {
-  cursor: default;
-  -webkit-app-region: no-drag;
-  height: auto;
-  width: auto;
-  display: inline-flex;
-  padding: 0;
-  border-radius: 4px;
-  align-items: center;
-  background: none;
-  box-shadow: none;
-
-  &:not(.ui-button-no-hover) {
-    &:hover:not(:disabled),
-    &:focus:not(:disabled) {
-      i,
-      span {
-        color: var(--font-color-hover);
-      }
-    }
-
-    &:enabled {
-      &:active {
-        i,
-        span {
-          color: var(--font-color-active);
-        }
-      }
-    }
-
-    span,
-    i {
-      color: var(--drawer-font-color);
-    }
-  }
-
-  &.ui-button-m {
-    i {
-      font-size: var(--font-size-5xl) !important;
-    }
-  }
-
-  &.ui-button-l {
-    height: 2.5rem;
-    width: 2.5rem;
-  }
-
-  &.ui-button-xl {
-    height: 3rem;
-    width: 3rem;
   }
 }
 

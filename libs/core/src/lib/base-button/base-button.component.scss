@@ -1,0 +1,59 @@
+button {
+  cursor: default;
+  -webkit-app-region: no-drag;
+  height: auto;
+  width: auto;
+  display: inline-flex;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  align-items: center;
+  background: none;
+  box-shadow: none;
+
+  &:not(.ui-button-no-hover) {
+    &:hover:not(:disabled),
+    &:focus-visible:not(:disabled) {
+      i,
+      span {
+        color: var(--font-color-hover);
+      }
+    }
+
+    &:enabled {
+      &:active {
+        i,
+        span {
+          color: var(--font-color-active);
+        }
+      }
+    }
+
+    span,
+    i {
+      color: var(--drawer-font-color);
+    }
+  }
+
+  &.ui-button-l {
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+
+  &.ui-button-xl {
+    height: 3rem;
+    width: 3rem;
+  }
+}
+
+.base-button-rounded {
+  border-radius: 24px;
+
+  button {
+    border-radius: 24px;
+  }
+}
+
+span {
+  transition: opacity 0.1s linear, padding 0.1s linear;
+}

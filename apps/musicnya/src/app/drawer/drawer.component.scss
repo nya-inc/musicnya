@@ -1,31 +1,35 @@
 :host {
-  ::ng-deep ui-drawer-item,
-  ::ng-deep ui-album-tile {
+  #baseComponent {
     margin-block: 0.7rem;
   }
 
-  ui-drawer-item {
-    margin-left: 1.55rem;
+  #baseComponent {
+    margin-left: 1.6rem;
     transition: width 0.6s cubic-bezier(0.165, 1, 0.165, 1), opacity 0.1s linear,
       padding 0.6s cubic-bezier(0.165, 1, 0.165, 1);
   }
 
-  ::ng-deep ui-album-tile {
-    &[uiButton]:hover button,
-    :focus {
+  ::ng-deep #footer-wrapper #baseComponent {
+    :focus-visible {
       img {
         filter: brightness(1.15);
       }
     }
 
-    [uiButton]:active {
+    &:hover {
+      img {
+        filter: brightness(1.15);
+      }
+    }
+
+    &:active {
       img {
         filter: brightness(0.85) !important;
       }
     }
 
     margin-block: 0.6rem;
-    margin-left: 1rem;
+    margin-left: 0.95rem;
     transition: width 0.6s cubic-bezier(0.165, 1, 0.165, 1), opacity 0.1s linear,
       padding 0.6s cubic-bezier(0.165, 1, 0.165, 1);
   }

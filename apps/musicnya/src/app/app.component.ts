@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
 import { DrawerComponent } from './drawer/drawer.component';
 import { FooterComponent } from './footer/footer.component';
 import { NgScrollbarModule } from 'ngx-scrollbar';
@@ -9,7 +8,6 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 @Component({
   standalone: true,
   imports: [
-    NxWelcomeComponent,
     RouterModule,
     CommonModule,
     DrawerComponent,

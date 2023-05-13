@@ -5,7 +5,13 @@
     color: var(--font-color);
   }
 
-  ::ng-deep ui-album-tile {
+  #start-container {
+    margin-left: 0.5rem;
+    display: flex;
+    vertical-align: middle;
+  }
+
+  ::ng-deep #start-container ui-album-tile {
     margin-left: 0.485rem;
     filter: drop-shadow(0rem 0.3rem 0.5rem rgba(black, 0.4));
 
@@ -19,8 +25,6 @@
     }
 
     .artwork {
-      margin-left: 0.5rem;
-
       &:hover {
         cursor: pointer;
       }
@@ -30,5 +34,8 @@
     .album-info {
       margin-bottom: 0.6rem;
     }
+  }
+
+  ::ng-deep #misc-controls-wrapper {
   }
 }

@@ -2,22 +2,23 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ElementRef,
   Input,
   NgModule,
+  QueryList,
+  ViewChildren,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UIButtonDirective } from '../directives/uibutton.directive';
-import { JoinPipeModule } from '@nyan-inc/core';
+import { BaseComponent, JoinPipeModule } from '@nyan-inc/core';
 
 @Component({
   selector: 'ui-album-tile',
   template: `
-    <button
-      uiButton
+    <base-button
+      #button
+      [tabIndex]="0"
       class="album-tile ui-drawer-item"
-      [ngClass]="albumStyleClass"
       [ngClass]="{ 'hover-pointer': hoverUnderline }"
-      [ngClass]="buttonStyleClass"
     >
       <img
         class="artwork"
@@ -28,19 +29,25 @@ import { JoinPipeModule } from '@nyan-inc/core';
       />
       <div
         class="album-info"
+        #span
         *ngIf="mediaTitle || showArtists"
         [style.display]="showArtists ? 'flex' : 'block'"
         [ngClass]="{ 'hover-underline': hoverUnderline }"
       >
-        <span class="mediaTitle" *ngIf="mediaTitle">{{ mediaTitle }}</span>
-        <span class="artists" *ngIf="showArtists">{{ artists | join }}</span>
+        <ng-container *ngIf="mediaTitle">
+          <span #span class="mediaTitle">{{ mediaTitle }}</span></ng-container
+        >
+        <ng-container *ngIf="showArtists">
+          <span #span class="artists">{{ artists | join }}</span>
+        </ng-container>
       </div>
-    </button>
+    </base-button>
   `,
   styleUrls: ['./album-tile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{ provide: BaseComponent, useExisting: AlbumTileComponent }],
 })
-export class AlbumTileComponent {
+export class AlbumTileComponent extends BaseComponent {
   @Input() type!: string;
   @Input() source!: string;
   @Input() mediaTitle!: string;
@@ -48,19 +55,35 @@ export class AlbumTileComponent {
   @Input() tileSize = 2;
   @Input() showArtists = this.artists ? true : false;
   @Input() hoverUnderline = false;
-  @Input() buttonStyleClass!: string;
-  @Input() albumStyleClass!: string;
+  @ViewChildren('span', { read: ElementRef })
+  spanElements!: QueryList<ElementRef>;
 
-  constructor(private reference: ChangeDetectorRef) {}
+  @ViewChildren('button', { read: ElementRef })
+  buttonElements!: QueryList<ElementRef>;
 
-  setClass(collapsed: boolean) {
-    this.albumStyleClass = collapsed ? 'collapsed' : 'expanded';
-    this.reference.markForCheck();
+  constructor(
+    protected changeDetector: ChangeDetectorRef,
+    elementReference: ElementRef
+  ) {
+    super(changeDetector, elementReference);
+  }
+
+  override toggleButtonWidth(): void {
+    console.log(this.buttonElements);
+    for (const item of this.buttonElements) {
+      if ((item.nativeElement as HTMLElement).style.width === '') {
+        (item.nativeElement as HTMLElement).style.width = 'auto';
+      }
+      (item.nativeElement as HTMLElement).style.width =
+        (item.nativeElement as HTMLElement).style.width == 'auto'
+          ? '90%'
+          : 'auto';
+    }
   }
 }
 
 @NgModule({
-  imports: [CommonModule, UIButtonDirective, JoinPipeModule],
+  imports: [CommonModule, JoinPipeModule],
   exports: [AlbumTileComponent],
   declarations: [AlbumTileComponent],
 })

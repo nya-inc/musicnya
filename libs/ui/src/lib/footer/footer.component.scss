@@ -18,6 +18,15 @@
     justify-content: left;
     align-self: center;
     display: flex;
-    flex: 1 1 auto;
+    flex: 1;
+  }
+
+  .footer-center {
+    justify-content: center;
+    flex: 1;
+  }
+
+  .footer-end {
+    justify-content: end;
   }
 }

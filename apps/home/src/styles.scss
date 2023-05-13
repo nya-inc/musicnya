@@ -1,0 +1,14 @@
+html,
+body {
+  height: 100vh;
+  user-select: none;
+  background-color: var(--ui-background-color);
+}
+
+body {
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}

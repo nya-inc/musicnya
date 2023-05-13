@@ -12,44 +12,8 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NgScrollbarModule } from 'ngx-scrollbar';
-import { UIButtonDirective } from '../directives/uibutton.directive';
-import { map, Subscription, tap } from 'rxjs';
-import { AlbumTileComponent } from '../album-tile/album-tile.component';
-import { DrawerEvent } from '@nyan-inc/core';
-
-@Component({
-  selector: 'ui-drawer-item',
-  template: `
-    <button
-      uiButton
-      [tabIndex]="0"
-      [ngClass]="itemStyleClass"
-      [style]="itemStyle"
-      class="ui-button-m"
-      [style.transition]="transition"
-    >
-      <i class="material-symbols-rounded text-2xl">{{ icon }}</i>
-      <span class="drawer-text">{{ text }}</span>
-    </button>
-  `,
-  styleUrls: ['./drawer.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-})
-export class DrawerItemComponent {
-  @Input() itemStyleClass!: string;
-  @Input() itemStyle!: string;
-  @Input() transition = '';
-  @Input() text!: string;
-  @Input() icon!: string;
-  @Input() tabIndex!: number;
-
-  constructor(private reference: ChangeDetectorRef) {}
-
-  setClass(collapsed: boolean) {
-    this.itemStyleClass = collapsed ? 'collapsed' : 'expanded';
-    this.reference.markForCheck();
-  }
-}
+import { Subscription, tap } from 'rxjs';
+import { BaseComponent, DrawerEvent } from '@nyan-inc/core';
 
 @Component({
   selector: 'ui-drawer',
@@ -127,58 +91,44 @@ export class DrawerComponent extends EventTarget implements AfterViewInit {
   @Input() collapsedWidth = 5;
   @Input() transition = 'width 0.6s cubic-bezier(0.165, 1, 0.165, 1)';
 
-  @ContentChildren(DrawerItemComponent, { descendants: true })
-  items!: QueryList<DrawerItemComponent>;
-  @ContentChildren(AlbumTileComponent, { descendants: true })
-  mediaItems!: QueryList<AlbumTileComponent>;
-  _drawerItems: Array<DrawerItemComponent | AlbumTileComponent> = [];
+  @ContentChildren(BaseComponent, {
+    descendants: true,
+  })
+  items!: QueryList<BaseComponent>;
+  _drawerItems: Array<BaseComponent> = [];
   subs: Subscription = new Subscription();
 
   ngAfterViewInit(): void {
-    this._drawerItems = [...this.items, ...this.mediaItems];
+    this._drawerItems = [...this.items];
+
+    console.log(this.items);
 
     for (const item of this._drawerItems) {
-      item.setClass(this.collapsed);
+      item.setStyle('span', 'opacity', this._collapsed ? '0' : '1');
+      item.setStyle(
+        '#baseComponent',
+        'width',
+        this._collapsed ? '30% ' : '90%'
+      );
     }
 
     this.subs.add(
       this.items.changes
         .pipe(
-          map((items: QueryList<DrawerItemComponent>) => {
+          tap((items: QueryList<BaseComponent>) => {
             for (const item of items) {
-              item.setClass(this.collapsed);
+              item.setStyle('span', 'opacity', this._collapsed ? '0' : '1');
+              item.setStyle(
+                '#baseComponent',
+                'width',
+                this._collapsed ? '30% ' : '90%'
+              );
             }
-            return items.toArray();
-          }),
-          tap(
-            (items: DrawerItemComponent[]) =>
-              (this._drawerItems = [
-                ...this._drawerItems,
-                ...items.filter((item) => !items.includes(item)),
-              ])
-          ),
-          tap((value) => console.log(value))
+            this._drawerItems = items.toArray();
+          })
         )
         .subscribe()
     );
-
-    this.mediaItems.changes
-      .pipe(
-        map((items: QueryList<AlbumTileComponent>) => {
-          for (const item of items) {
-            item.setClass(this.collapsed);
-          }
-          return items.toArray();
-        }),
-        tap(
-          (items: AlbumTileComponent[]) =>
-            (this._drawerItems = [
-              ...this._drawerItems,
-              ...items.filter((item) => !items.includes(item)),
-            ])
-        )
-      )
-      .subscribe();
   }
 
   @HostListener('drawertoggle', ['$event'])
@@ -195,15 +145,30 @@ export class DrawerComponent extends EventTarget implements AfterViewInit {
 
     if (this.items) {
       for (const item of this._drawerItems) {
-        item.setClass(this.collapsed);
+        item.setStyle('span', 'opacity', this._collapsed ? '0' : '1');
+        if (
+          (
+            item.elementReference.nativeElement as HTMLElement
+          ).parentElement?.id.includes('footer-wrapper')
+        ) {
+          this._collapsed
+            ? item.setStyle('self, button', 'width', '27.5%')
+            : item.setStyle('self, button', 'width', '90%');
+        } else {
+          item.setStyle(
+            'self, button',
+            'width',
+            this._collapsed ? '60%' : '90%'
+          );
+        }
       }
     }
   }
 }
 
 @NgModule({
-  imports: [CommonModule, NgScrollbarModule, UIButtonDirective],
-  exports: [DrawerComponent, DrawerItemComponent],
-  declarations: [DrawerComponent, DrawerItemComponent],
+  imports: [CommonModule, NgScrollbarModule],
+  exports: [DrawerComponent],
+  declarations: [DrawerComponent],
 })
 export class DrawerModule {}

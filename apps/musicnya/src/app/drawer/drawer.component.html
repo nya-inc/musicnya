@@ -4,48 +4,43 @@
   [style.--albumTileOutlineInverse]="collapsed ? '0' : '0.15rem'"
 >
   <ng-container header>
-    <ui-drawer-item
-      uiButton
-      class="ui-button-m text-reg outline-offset"
+    <base-button
+      class="ui-button-m text-reg outline-offset drawer-item"
       icon="more_vert"
       text="File Menu"
-    ></ui-drawer-item>
-    <ui-drawer-item
-      uiButton
-      class="ui-button-m text-reg outline-offset"
+    ></base-button>
+    <base-button
+      class="ui-button-m text-reg outline-offset drawer-item"
       text="Home"
       icon="home"
-    ></ui-drawer-item>
-    <ui-drawer-item
-      uiButton
-      class="ui-button-m outline-offset"
+    ></base-button>
+    <base-button
+      class="ui-button-m outline-offset drawer-item"
       text="Search"
       icon="search"
-    ></ui-drawer-item>
+    ></base-button>
   </ng-container>
   <ng-container content>
-    <ui-drawer-item
-      uiButton
-      class="ui-button-m outline-offset"
+    <base-button
+      class="ui-button-m outline-offset drawer-item"
       text="Library"
       icon="library_music"
       (click)="toggle()"
-    ></ui-drawer-item>
-    <!-- <ui-drawer-item
+    ></base-button>
+    <!-- <base-button
       uiButton
       text="New Playlist"
       icon="add_box"
-    ></ui-drawer-item>
-    <ui-drawer-item
+    ></base-button>
+    <base-button
       uiButton
       text="Liked Songs"
       icon="thumb_up"
-    ></ui-drawer-item> -->
+    ></base-button> -->
   </ng-container>
   <ng-container footer>
     <ui-album-tile
-      uiButton
-      class="outline-offset"
+      class="outline-offset drawer-item"
       source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
       [tileSize]="3"
       mediaTitle="Test Album"
@@ -53,8 +48,7 @@
       [showArtists]="true"
     ></ui-album-tile>
     <ui-album-tile
-      uiButton
-      class="outline-offset"
+      class="outline-offset drawer-item"
       source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
       [tileSize]="3"
       mediaTitle="Test Album"
@@ -62,8 +56,7 @@
       [showArtists]="true"
     ></ui-album-tile>
     <ui-album-tile
-      uiButton
-      class="outline-offset"
+      class="outline-offset drawer-item"
       source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
       [tileSize]="3"
       mediaTitle="Test Album"
@@ -71,8 +64,7 @@
       [showArtists]="true"
     ></ui-album-tile>
     <ui-album-tile
-      uiButton
-      class="outline-offset"
+      class="outline-offset drawer-item"
       source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
       [tileSize]="3"
       mediaTitle="Test Album"
@@ -80,8 +72,7 @@
       [showArtists]="true"
     ></ui-album-tile>
     <ui-album-tile
-      uiButton
-      class="outline-offset"
+      class="outline-offset drawer-item"
       source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
       [tileSize]="3"
       mediaTitle="Test Album"
@@ -89,8 +80,7 @@
       [showArtists]="true"
     ></ui-album-tile>
     <ui-album-tile
-      uiButton
-      class="outline-offset"
+      class="outline-offset drawer-item"
       source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
       [tileSize]="3"
       mediaTitle="Test Album"

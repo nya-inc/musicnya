@@ -1,4 +1,32 @@
 :host {
+  &:not(.ui-button-no-hover) {
+    &:hover:not(:disabled),
+    &:focus:not(:disabled) {
+      i,
+      span:not(.artists) {
+        color: var(--font-color-hover);
+      }
+    }
+
+    &:enabled {
+      &:active {
+        i,
+        span:not(.artists) {
+          color: var(--font-color-active);
+        }
+      }
+    }
+
+    span:not(.artists),
+    i {
+      color: var(--drawer-font-color);
+    }
+  }
+
+  base-button {
+    border-radius: 4px;
+  }
+
   .artwork {
     border-radius: 4px;
   }
@@ -7,6 +35,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-start;
+    color: var(--font-color);
   }
 
   .album-info {
@@ -14,5 +43,10 @@
     flex-direction: column;
     align-items: flex-start;
     padding-left: 1rem;
+    transition: opacity 0.1s linear, padding 0.2s linear;
+  }
+
+  span {
+    transition: opacity 0.1s linear, padding 0.1s linear;
   }
 }

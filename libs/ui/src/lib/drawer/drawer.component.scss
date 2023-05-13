@@ -34,17 +34,20 @@
     padding-bottom: 5.375rem;
   }
 
-  ::ng-deep .drawer-text {
-    padding-left: 1rem;
-    font-size: var(--font-size-xl);
-    letter-spacing: var(--letter-spacing-nl);
-    white-space: nowrap;
+  ::ng-deep {
+    .ui-drawer #header-wrapper span,
+    .ui-drawer #content-wrapper span {
+      padding-left: 1rem;
+      font-size: var(--font-size-xl);
+      letter-spacing: var(--letter-spacing-nl);
+      white-space: nowrap;
+    }
   }
 
   .drawer-scroller,
   .content-scroller {
     --scrollbar-size: 6px;
-    --scrollbar-thumb-color: var(--font-color-very-faded);
+    --scrollbar-thumb-color: var(--font-color-faded2);
     --scrollbar-thumb-hover-color: var(--font-color-faded);
     --scrollbar-border-radius: 4px;
   }
@@ -131,45 +134,8 @@
     width: inherit;
     height: calc(100vh - 5.375rem);
     --scrollbar-size: 6px;
-    --scrollbar-thumb-color: var(--font-color-very-faded);
+    --scrollbar-thumb-color: var(--font-color-faded2);
     --scrollbar-thumb-hover-color: var(--font-color-faded);
     --scrollbar-border-radius: 4px;
-  }
-}
-
-::ng-deep {
-  [uiButton]:not(.collapsed) {
-    width: 90%;
-  }
-
-  ui-album-tile button:not(.collapsed) {
-    width: auto;
-  }
-
-  .drawer-text {
-    transition: opacity 0.1s linear, padding 0.1s linear;
-    padding: 0;
-  }
-
-  &.collapsed,
-  button.collapsed {
-    .drawer-text,
-    .album-info {
-      padding: 0 !important;
-    }
-
-    ui-drawer-item button.collapsed {
-      width: 40%;
-    }
-
-    span,
-    .album-info {
-      opacity: 0;
-      width: 0;
-    }
-
-    .album-info {
-      transition: opacity 0.1s linear, padding 0.2s linear;
-    }
   }
 }
