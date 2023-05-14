@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, ChangeDetectionStrategy, NgModule } from '@angular/core';
 
 @Component({
   selector: 'ui-footer',

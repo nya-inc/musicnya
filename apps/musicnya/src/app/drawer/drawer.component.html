@@ -1,7 +1,7 @@
 <ui-drawer
-  [style.--drawerPadding]="collapsed ? '0rem' : '0.2rem'"
-  [style.--albumTileOutline]="collapsed ? '0.15rem' : '0'"
-  [style.--albumTileOutlineInverse]="collapsed ? '0' : '0.15rem'"
+  [style.--drawerPadding]="!open ? '0rem' : '0.2rem'"
+  [style.--albumTileOutline]="!open ? '0.15rem' : '0'"
+  [style.--albumTileOutlineInverse]="!open ? '0' : '0.15rem'"
 >
   <ng-container header>
     <base-button
@@ -13,7 +13,7 @@
       class="ui-button-m text-reg outline-offset drawer-item"
       text="Home"
       icon="home"
-      [routerLink]="'/'"
+      routerLink="/"
     ></base-button>
     <base-button
       class="ui-button-m outline-offset drawer-item"
@@ -27,6 +27,7 @@
       class="ui-button-m outline-offset drawer-item"
       text="Library"
       icon="library_music"
+      uiDrawerToggle
       (click)="toggle()"
     ></base-button>
     <!-- <base-button

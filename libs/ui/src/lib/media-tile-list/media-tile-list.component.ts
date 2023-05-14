@@ -1,31 +1,22 @@
+import { CommonModule } from '@angular/common';
 import {
-  AfterViewInit,
-  ChangeDetectionStrategy,
   Component,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+  ViewChildren,
   ElementRef,
+  QueryList,
   HostListener,
   Input,
-  QueryList,
-  ViewChildren,
-  ViewEncapsulation,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HeadingComponent } from '../heading/heading.component';
 import { AlbumTileModule } from '../album-tile/album-tile.component';
-import { CheckOverflowDirective } from '@nyan-inc/core';
-import { UtilitiesService } from 'libs/core/src/lib/utilities.service';
+import { HeadingComponent } from '../heading/heading.component';
 import { DragScrollModule } from 'ngx-drag-scroll';
 
 @Component({
   selector: 'ui-media-tile-list',
   standalone: true,
-  imports: [
-    CommonModule,
-    HeadingComponent,
-    AlbumTileModule,
-    CheckOverflowDirective,
-    DragScrollModule,
-  ],
+  imports: [CommonModule, HeadingComponent, AlbumTileModule, DragScrollModule],
   template: ` <ui-heading id="heading" size="medium">{{
       listTitle
     }}</ui-heading>
@@ -56,7 +47,6 @@ import { DragScrollModule } from 'ngx-drag-scroll';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MediaTileListComponent {
-  constructor(private utilities: UtilitiesService) {}
   @ViewChildren('items', { read: ElementRef })
   mediaItems!: QueryList<ElementRef>;
 

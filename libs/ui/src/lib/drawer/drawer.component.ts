@@ -3,18 +3,21 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  ContentChild,
   ContentChildren,
   ElementRef,
-  HostListener,
   Input,
   NgModule,
+  OnDestroy,
   QueryList,
+  ViewChild,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgScrollbarModule } from 'ngx-scrollbar';
-import { Subscription, tap } from 'rxjs';
-import { BaseComponent, DrawerEvent } from '@nyan-inc/core';
-import { UtilitiesService } from 'libs/core/src/lib/utilities.service';
+import { NgScrollbar, NgScrollbarModule } from 'ngx-scrollbar';
+import { filter, map, Subscription, tap } from 'rxjs';
+import { BaseComponent } from '@nyan-inc/core';
+import { DrawerToggleDirective } from '../directives/drawer-toggle.directive';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'ui-drawer',
@@ -26,8 +29,8 @@ import { UtilitiesService } from 'libs/core/src/lib/utilities.service';
       [style]="drawerStyle"
       [style.transition]="transition"
       [ngClass]="{
-        'drawer-collapsed': collapsed,
-        'drawer-expanded': !collapsed
+        'drawer-collapsed': _collapsed,
+        'drawer-expanded': !_collapsed
       }"
       [style.width.rem]="collapsed ? collapsedWidth : width"
     >
@@ -35,8 +38,8 @@ import { UtilitiesService } from 'libs/core/src/lib/utilities.service';
         class="drawer-wrapper"
         [style.transition]="transition"
         [ngClass]="{
-          'drawer-collapsed': collapsed,
-          'drawer-expanded': !collapsed
+          'drawer-collapsed': _collapsed,
+          'drawer-expanded': !_collapsed
         }"
         [style.width.rem]="collapsed ? collapsedWidth : width"
       >
@@ -54,6 +57,7 @@ import { UtilitiesService } from 'libs/core/src/lib/utilities.service';
           </div>
         </div>
         <div class="ui-drawer-footer">
+          <!-- TODO: move this out of library -->
           <ng-scrollbar class="drawer-scroller">
             <div id="footer-wrapper">
               <ng-content select="[footer]"></ng-content>
@@ -76,13 +80,26 @@ import { UtilitiesService } from 'libs/core/src/lib/utilities.service';
   styleUrls: ['./drawer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DrawerComponent extends EventTarget implements AfterViewInit {
+export class DrawerComponent implements OnDestroy, AfterViewInit {
   constructor(
     public reference: ElementRef,
     private changeReference: ChangeDetectorRef,
-    private utilities: UtilitiesService
+    private router: Router
   ) {
-    super();
+    this.subs.add(
+      this.router.events
+        .pipe(
+          filter(
+            (event): event is NavigationEnd => event instanceof NavigationEnd
+          ),
+          filter<NavigationEnd>(() => !!this.scrollbar),
+          map<NavigationEnd, void>(() => {
+            console.log(this.scrollbar);
+            this.scrollbar.scrollTo({ top: 0, duration: 500 });
+          })
+        )
+        .subscribe()
+    );
   }
 
   _collapsed = true;
@@ -97,21 +114,31 @@ export class DrawerComponent extends EventTarget implements AfterViewInit {
     descendants: true,
   })
   items!: QueryList<BaseComponent>;
+  @ContentChild(NgScrollbar, { static: true }) scrollbar!: NgScrollbar;
+  @ContentChild(DrawerToggleDirective)
+  drawerToggle!: DrawerToggleDirective;
   _drawerItems: Array<BaseComponent> = [];
   subs: Subscription = new Subscription();
 
   ngAfterViewInit(): void {
     this._drawerItems = [...this.items];
+    this._collapsed = false;
+    this._collapsed = true;
 
-    console.log(this.items);
+    this.changeReference.markForCheck();
+
+    this.subs.add(
+      this.drawerToggle.drawerOpen$
+        .pipe(
+          tap((value) => (this.collapsed = !value)),
+          tap(() => this.changeReference.markForCheck())
+        )
+        .subscribe()
+    );
 
     for (const item of this._drawerItems) {
-      item.setStyle('span', 'opacity', this._collapsed ? '0' : '1');
-      item.setStyle(
-        '#baseComponent',
-        'width',
-        this._collapsed ? '30% ' : '90%'
-      );
+      item.setStyle('span', 'opacity', this.collapsed ? '0' : '1');
+      item.setStyle('#baseComponent', 'width', this.collapsed ? '30% ' : '90%');
     }
 
     this.subs.add(
@@ -119,11 +146,11 @@ export class DrawerComponent extends EventTarget implements AfterViewInit {
         .pipe(
           tap((items: QueryList<BaseComponent>) => {
             for (const item of items) {
-              item.setStyle('span', 'opacity', this._collapsed ? '0' : '1');
+              item.setStyle('span', 'opacity', this.collapsed ? '0' : '1');
               item.setStyle(
                 '#baseComponent',
                 'width',
-                this._collapsed ? '30% ' : '90%'
+                this.collapsed ? '30% ' : '90%'
               );
             }
             this._drawerItems = items.toArray();
@@ -133,10 +160,8 @@ export class DrawerComponent extends EventTarget implements AfterViewInit {
     );
   }
 
-  @HostListener('drawertoggle', ['$event'])
-  onToggle(event: DrawerEvent) {
-    this.collapsed = event.detail.collapsed;
-    setTimeout(() => this.utilities.triggerCheck(), 95);
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
   }
 
   public get collapsed() {

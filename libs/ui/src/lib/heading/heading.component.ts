@@ -1,11 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  HostBinding,
-  Input,
-  ViewEncapsulation,
-} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  ViewEncapsulation,
+  Input,
+  HostBinding,
+} from '@angular/core';
 
 @Component({
   selector: 'ui-heading',

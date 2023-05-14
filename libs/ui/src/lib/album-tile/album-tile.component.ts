@@ -1,17 +1,17 @@
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  HostBinding,
-  Input,
-  NgModule,
-  QueryList,
-  ViewChildren,
-} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BaseComponent, JoinPipeModule } from '@nyan-inc/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  ViewChildren,
+  ElementRef,
+  QueryList,
+  HostBinding,
+  ChangeDetectorRef,
+  NgModule,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { BaseComponent, JoinPipeModule } from '@nyan-inc/core';
 
 @Component({
   selector: 'ui-album-tile-large',

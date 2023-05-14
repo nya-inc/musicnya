@@ -32,6 +32,7 @@
     width: inherit;
     flex: 1;
     padding-bottom: 5.375rem;
+    border-radius: 0.5rem;
   }
 
   ::ng-deep {
@@ -54,7 +55,11 @@
   }
 
   .drawer-scroller {
-    height: 20rem;
+    background-color: var(--background-color);
+    border-radius: 6px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    height: 100%;
   }
 
   .divider-wrapper {
@@ -95,8 +100,8 @@
   }
 
   #content-wrapper {
+    border-radius: 6px;
     background-color: var(--background-color);
-    border-radius: 0.5rem;
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     align-items: flex-start;
@@ -105,11 +110,11 @@
   }
 
   #footer-wrapper {
-    background-color: var(--background-color);
     align-items: flex-start;
     display: flex;
     flex-direction: column;
     margin-top: -0.5rem;
+    height: calc(100vh - 17.975rem);
 
     &:first-child {
       padding-top: 1rem;
@@ -129,6 +134,10 @@
     top: 0.5rem;
     right: 0.5rem;
     transition: left 0.6s cubic-bezier(0.165, 1, 0.165, 1);
+  }
+
+  ::ng-deep .ng-scroll-content {
+    display: block !important;
   }
 
   .content-scroller {

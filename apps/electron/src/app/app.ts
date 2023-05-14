@@ -159,9 +159,9 @@ export default class App {
     if (rendererAppName) {
       App.initMainWindow();
       App.loadMainWindow();
-    }
-    if (App.isDevelopmentMode()) {
-      App.mainWindow.webContents.openDevTools();
+      if (App.isDevelopmentMode()) {
+        App.mainWindow.webContents.openDevTools();
+      }
     }
   }
 

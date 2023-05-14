@@ -22,6 +22,7 @@
           "apps/musicnya/src/assets/styles/styles.scss",
           "libs/ui/src/lib/assets/styles/ui_styles.scss"
         ],
+        "assets": ["apps/musicnya/src/assets"],
         "scripts": [],
         "customWebpackConfig": {
           "path": "apps/musicnya/webpack.config.js"

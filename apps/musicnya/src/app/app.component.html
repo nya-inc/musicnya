@@ -1,4 +1,8 @@
-<musicnya-drawer [width]="width">
+<musicnya-drawer
+  [width]="width"
+  (drawerOpened$)="toggleDrawer($event)"
+  [open]="(drawerOpen$ | async)!"
+>
   <router-outlet></router-outlet>
 </musicnya-drawer>
 <musicnya-footer></musicnya-footer>

@@ -1,20 +1,22 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
-  ViewChild,
+  OnChanges,
+  Output,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 // eslint-disable-next-line import/no-unresolved
 import {
   AlbumTileModule,
-  DrawerComponent as ParentDrawer,
   DrawerModule,
+  DrawerToggleDirective,
 } from '@nyan-inc/ui';
 import { BaseButtonModule } from '@nyan-inc/core';
 import { RouterModule } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'musicnya-drawer',
@@ -25,35 +27,27 @@ import { RouterModule } from '@angular/router';
     AlbumTileModule,
     BaseButtonModule,
     RouterModule,
+    DrawerToggleDirective,
   ],
   templateUrl: './drawer.component.html',
   styleUrls: ['./drawer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DrawerComponent extends EventTarget implements AfterViewInit {
+export class DrawerComponent extends EventTarget implements OnChanges {
   constructor(private changeReference: ChangeDetectorRef) {
     super();
   }
 
-  @ViewChild(ParentDrawer) parentDrawer!: ParentDrawer;
-
   @Input() width?: number;
-  collapsed?: boolean;
-
-  ngAfterViewInit(): void {
-    this.collapsed = this.parentDrawer.collapsed;
-    this.changeReference.markForCheck();
-  }
+  @Input() open = false;
+  @Output() readonly drawerOpened$: Subject<boolean> = new Subject();
 
   toggle() {
-    this.collapsed = !this.collapsed;
-    const toggleEvent = new CustomEvent('drawertoggle', {
-      bubbles: true,
-      detail: { collapsed: this.collapsed },
-    });
-    (this.parentDrawer.reference.nativeElement as HTMLElement).dispatchEvent(
-      toggleEvent
-    );
+    this.drawerOpened$.next(this.open);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.open = changes['open'].currentValue as boolean;
     this.changeReference.markForCheck();
   }
 }
