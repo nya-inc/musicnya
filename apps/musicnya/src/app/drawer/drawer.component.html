@@ -13,13 +13,15 @@
       class="ui-button-m text-reg outline-offset drawer-item"
       text="Home"
       icon="home"
-      routerLink="/"
+      [routerLink]="'/'"
+      disableChildTabIndex
     ></base-button>
     <base-button
       class="ui-button-m outline-offset drawer-item"
       text="Search"
       icon="search"
       [routerLink]="'/search'"
+      disableChildTabIndex
     ></base-button>
   </ng-container>
   <ng-container content>
@@ -48,6 +50,7 @@
       [tileSize]="3"
       mediaTitle="Test Album"
       [artists]="['guy']"
+      [hoverUnderline]="false"
       [showArtists]="true"
     ></ui-album-tile>
     <ui-album-tile

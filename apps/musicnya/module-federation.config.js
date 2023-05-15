@@ -1,4 +1,4 @@
 module.exports = {
   name: 'musicnya',
-  remotes: [],
+  remotes: ['home', 'search'],
 };

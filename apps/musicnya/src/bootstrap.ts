@@ -1,6 +1,7 @@
 import { bootstrapApplication } from '@angular/platform-browser';
 import {
   provideRouter,
+  RouterModule,
   withEnabledBlockingInitialNavigation,
   withHashLocation,
 } from '@angular/router';
@@ -15,6 +16,7 @@ import * as fromApp from './store/reducers/app.reducer';
 import * as fromLayout from './store/reducers/layout.reducer';
 import { AppEffects } from './store/effects/app.effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideRouterStore } from '@ngrx/router-store';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -46,6 +48,7 @@ bootstrapApplication(AppComponent, {
     ),
     provideState(fromLayout.LAYOUT_FEATURE_KEY, fromLayout.layoutReducer),
     provideEffects(AppEffects),
+    provideRouterStore(),
     provideStoreDevtools({ maxAge: 25 }),
   ],
   // eslint-disable-next-line unicorn/prefer-top-level-await

@@ -4,6 +4,11 @@
   "license": "MIT",
   "scripts": {},
   "private": true,
+  "build": {
+    "electronDownload": {
+      "mirror": "https://github.com/castlabs/electron-releases/releases/download/v"
+    }
+  },
   "dependencies": {
     "@angular/animations": "15.2.9",
     "@angular/cdk": "^16.0.0",
@@ -17,13 +22,16 @@
     "@ngrx/component-store": "~15.3.0",
     "@ngrx/effects": "~15.3.0",
     "@ngrx/entity": "~15.3.0",
-    "@ngrx/router-store": "~15.3.0",
+    "@ngrx/router-store": "^16.0.0",
     "@ngrx/store": "~15.3.0",
     "@ngrx/store-devtools": "~15.3.0",
     "colorjs.io": "0.4.3",
+    "ejs": "^3.1.9",
+    "express": "^4.18.2",
     "fast-average-color": "9.3.0",
     "hls.js": "1.4.2-0.canary.9145",
     "material-symbols": "0.5.5",
+    "morgan": "^1.10.0",
     "ngx-drag-scroll": "^15.0.0",
     "ngx-scrollbar": "^11.0.0",
     "rxjs": "7.7",
@@ -63,6 +71,7 @@
     "@typescript-eslint/parser": "^5.59.5",
     "cypress": "^12.11.0",
     "electron": "https://github.com/castlabs/electron-releases#v25.0.0-beta.4+wvcus",
+    "electron-builder": "^23.6.0",
     "electron-devtools-installer": "^3.2.0",
     "eslint": "^8.40.0",
     "eslint-import-resolver-typescript": "^3.5.5",

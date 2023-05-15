@@ -12,4 +12,8 @@ module.exports = withModuleFederation({
    *   ['app2', 'https://app2.example.com'],
    * ]
    */
+  remotes: [
+    ['home', 'http://localhost:4201'],
+    ['search', 'http://localhost:4202'],
+  ],
 });

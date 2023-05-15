@@ -1,7 +1,9 @@
 {
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
-    "types": ["node"]
+    "types": ["node"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true
   },
   "include": ["**/*.ts"]
 }

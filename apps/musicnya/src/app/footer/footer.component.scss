@@ -15,7 +15,7 @@
     }
   }
 
-  ::ng-deep #start-container ui-album-tile {
+  ::ng-deep #start-container #media-tile {
     margin-left: 0.485rem;
     filter: drop-shadow(0rem 0.3rem 0.5rem rgba(black, 0.4));
 
@@ -23,14 +23,18 @@
       vertical-align: middle !important;
     }
 
-    #artist,
     #title {
       color: var(--font-color);
+      cursor: pointer !important;
+    }
+
+    #artists {
+      cursor: pointer !important;
     }
 
     #artwork {
       &:hover {
-        cursor: pointer;
+        cursor: auto;
       }
     }
 
@@ -38,8 +42,5 @@
     #album-info {
       margin-bottom: 0.6rem;
     }
-  }
-
-  ::ng-deep #misc-controls-wrapper {
   }
 }

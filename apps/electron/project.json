@@ -3,6 +3,9 @@
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "sourceRoot": "apps/electron/src",
   "projectType": "application",
+  "expressPort": 3000,
+  "basePath": "./dist",
+  "main": "apps/electron/src/main.ts",
   "targets": {
     "build": {
       "executor": "nx-electron:build",
@@ -39,6 +42,7 @@
         "name": "electron",
         "frontendProject": "musicnya",
         "outputPath": "dist/packages",
+        "platform": "linux",
         "prepackageOnly": true
       }
     },

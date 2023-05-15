@@ -136,7 +136,7 @@ body.light {
 .hover-underline {
   :hover {
     text-decoration: underline;
-    cursor: pointer;
+    cursor: pointer !important;
   }
 }
 

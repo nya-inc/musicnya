@@ -36,6 +36,10 @@ button {
     }
   }
 
+  .ui-button-no-hover {
+    cursor: default !important;
+  }
+
   &.ui-button-l {
     height: 2.5rem;
     width: 2.5rem;

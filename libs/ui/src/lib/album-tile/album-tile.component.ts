@@ -10,24 +10,30 @@ import {
   ChangeDetectorRef,
   NgModule,
 } from '@angular/core';
-import { Router } from '@angular/router';
-import { BaseComponent, JoinPipeModule } from '@nyan-inc/core';
+import { Router, RouterModule } from '@angular/router';
+import {
+  BaseButtonModule,
+  BaseComponent,
+  JoinPipeModule,
+} from '@nyan-inc/core';
 
 @Component({
   selector: 'ui-album-tile-large',
   template: `
-    <base-button
-      #button
-      [tabIndex]="0"
-      class="album-tile-large"
-      [ngClass]="{ 'hover-pointer': hoverUnderline }"
-    >
+    <base-button #button [tabIndex]="0" class="album-tile-large">
+      <div id="play-button-container">
+        <button id="play-button">
+          <i class="material-symbols-rounded">play_arrow</i>
+        </button>
+      </div>
       <img
         id="artwork"
         alt="{{ type }} art"
         [style.width.rem]="tileSize"
         [style.height.rem]="tileSize"
         [src]="source"
+        [ngClass]="{ 'hover-pointer': hoverUnderline }"
+        [routerLink]="artworkRouterLink"
       />
       <div
         id="album-info-large"
@@ -37,10 +43,14 @@ import { BaseComponent, JoinPipeModule } from '@nyan-inc/core';
         [ngClass]="{ 'hover-underline': hoverUnderline }"
       >
         <ng-container *ngIf="mediaTitle">
-          <span #span id="title">{{ mediaTitle }}</span></ng-container
+          <span #span id="title-large" [routerLink]="titleRouterLink">{{
+            mediaTitle
+          }}</span></ng-container
         >
         <ng-container *ngIf="showArtists">
-          <span #span id="artists">{{ artists | join }}</span>
+          <span #span id="artists" [routerLink]="artistsRouterLink">{{
+            artists | join
+          }}</span>
         </ng-container>
       </div>
     </base-button>
@@ -60,6 +70,9 @@ export class AlbumTileLargeComponent extends BaseComponent {
   @ViewChildren('span', { read: ElementRef })
   spanElements!: QueryList<ElementRef>;
   @HostBinding('class') class = 'outline-offset';
+  @Input() titleRouterLink!: string;
+  @Input() artistsRouterLink!: string;
+  @Input() artworkRouterLink!: string;
 
   @ViewChildren('button', { read: ElementRef })
   buttonElements!: QueryList<ElementRef>;
@@ -73,7 +86,6 @@ export class AlbumTileLargeComponent extends BaseComponent {
   }
 
   override toggleButtonWidth(): void {
-    console.log(this.buttonElements);
     for (const item of this.buttonElements) {
       if ((item.nativeElement as HTMLElement).style.width === '') {
         (item.nativeElement as HTMLElement).style.width = 'auto';
@@ -101,6 +113,8 @@ export class AlbumTileLargeComponent extends BaseComponent {
         [style.max-width.rem]="tileSize"
         [style.max-height.rem]="tileSize"
         [src]="source"
+        [ngClass]="{ 'hover-underline': hoverUnderline }"
+        [routerLink]="artworkRouterLink"
       />
       <div
         id="album-info"
@@ -110,10 +124,14 @@ export class AlbumTileLargeComponent extends BaseComponent {
         [ngClass]="{ 'hover-underline': hoverUnderline }"
       >
         <ng-container *ngIf="mediaTitle">
-          <span #span id="title">{{ mediaTitle }}</span></ng-container
+          <span #span id="title" [routerLink]="titleRouterLink">{{
+            mediaTitle
+          }}</span></ng-container
         >
         <ng-container *ngIf="showArtists">
-          <span #span id="artists">{{ artists | join }}</span>
+          <span #span id="artists" [routerLink]="artistsRouterLink">{{
+            artists | join
+          }}</span>
         </ng-container>
       </div>
     </base-button>
@@ -132,6 +150,9 @@ export class AlbumTileComponent extends BaseComponent {
   @Input() hoverUnderline = false;
   @ViewChildren('span', { read: ElementRef })
   spanElements!: QueryList<ElementRef>;
+  @Input() titleRouterLink!: string;
+  @Input() artistsRouterLink!: string;
+  @Input() artworkRouterLink!: string;
 
   @ViewChildren('button', { read: ElementRef })
   buttonElements!: QueryList<ElementRef>;
@@ -159,7 +180,7 @@ export class AlbumTileComponent extends BaseComponent {
 }
 
 @NgModule({
-  imports: [CommonModule, JoinPipeModule],
+  imports: [CommonModule, JoinPipeModule, BaseButtonModule, RouterModule],
   exports: [AlbumTileComponent, AlbumTileLargeComponent],
   declarations: [AlbumTileComponent, AlbumTileLargeComponent],
 })

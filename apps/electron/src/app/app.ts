@@ -5,8 +5,8 @@
 import { BrowserWindow, shell, screen, Menu } from 'electron';
 import { rendererAppName, rendererAppPort } from './constants';
 import { environment } from '../environments/environment';
-import { join } from 'node:path';
-import { format } from 'node:url';
+import path, { join } from 'node:path';
+import * as server from './express/app';
 
 export default class App {
   // Keep a global reference of the window object, if you don't, the window will
@@ -101,6 +101,10 @@ export default class App {
     App.mainWindow.webContents.session.webRequest.onHeadersReceived(
       // eslint-disable-next-line @typescript-eslint/require-await
       async (details, callback) => {
+        details.responseHeaders['Access-Control-Allow-Origin'] = [
+          'http://localhost:3000',
+        ];
+
         if (details.url.includes('buy.itunes.apple.com')) {
           details.responseHeaders['Referrer-Policy'] = ['no-referrer'];
           details.responseHeaders['sec-fetch-mode'] = ['no-cors'];
@@ -117,7 +121,7 @@ export default class App {
           details.responseHeaders['Access-Control-Allow-Origin'] = [
             App.baseUrl,
           ];
-        } else {
+        } else if (details.url.includes('music.apple.com')) {
           details.responseHeaders['access-control-allow-origin'] = [
             App.baseUrl,
           ];
@@ -156,12 +160,14 @@ export default class App {
     // This method will be called when Electron has finished
     // initialization and is ready to create browser windows.
     // Some APIs can only be used after this event occurs.
+
     if (rendererAppName) {
       App.initMainWindow();
       App.loadMainWindow();
       if (App.isDevelopmentMode()) {
         App.mainWindow.webContents.openDevTools();
       }
+      App.setHeadersConfig();
     }
   }
 
@@ -193,18 +199,21 @@ export default class App {
       webPreferences: {
         autoplayPolicy: 'no-user-gesture-required',
         scrollBounce: true,
+        sandbox: true,
         accessibleTitle: 'musicnya',
         defaultFontFamily: { standard: 'Haskoy', sansSerif: 'InterDisplay' },
         devTools: App.isDevelopmentMode(),
         experimentalFeatures: App.isDevelopmentMode(),
         nodeIntegration: false,
         contextIsolation: true,
-        backgroundThrottling: false,
+        backgroundThrottling: true,
         preload: join(__dirname, 'main.preload.js'),
       },
     });
     App.mainWindow.setMenu(App.menu);
     App.mainWindow.center();
+
+    const _server = server;
 
     // if main window is ready to show, close the splash window and show the main window
     App.mainWindow.once('ready-to-show', () => {
@@ -228,17 +237,7 @@ export default class App {
 
   private static loadMainWindow() {
     // load the index.html of the app.
-    if (App.application.isPackaged) {
-      App.mainWindow.loadURL(
-        format({
-          pathname: join(__dirname, '..', rendererAppName, 'index.html'),
-          protocol: 'file:',
-          slashes: true,
-        })
-      );
-    } else {
-      App.mainWindow.loadURL(App.baseUrl);
-    }
+    App.mainWindow.loadURL(App.baseUrl);
   }
 
   static main(app: Electron.App, browserWindow: typeof BrowserWindow) {

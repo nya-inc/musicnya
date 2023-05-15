@@ -17,7 +17,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "nyan-inc",
+            "prefix": "musicnya",
             "style": "kebab-case"
           }
         ]

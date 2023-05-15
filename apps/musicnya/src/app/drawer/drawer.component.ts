@@ -14,7 +14,10 @@ import {
   DrawerModule,
   DrawerToggleDirective,
 } from '@nyan-inc/ui';
-import { BaseButtonModule } from '@nyan-inc/core';
+import {
+  BaseButtonModule,
+  DisableChildTabIndexDirective,
+} from '@nyan-inc/core';
 import { RouterModule } from '@angular/router';
 import { Subject } from 'rxjs';
 
@@ -28,6 +31,7 @@ import { Subject } from 'rxjs';
     BaseButtonModule,
     RouterModule,
     DrawerToggleDirective,
+    DisableChildTabIndexDirective,
   ],
   templateUrl: './drawer.component.html',
   styleUrls: ['./drawer.component.scss'],

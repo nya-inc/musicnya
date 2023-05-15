@@ -1,12 +1,12 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SearchComponent } from '../search/search.component';
+import { HomeComponent } from '../home/home.component';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, SearchComponent],
-  selector: 'musicnya-search-entry',
-  template: `<musicnya-search></musicnya-search>`,
+  imports: [CommonModule, HomeComponent],
+  selector: 'musicnya-home-entry',
+  template: `<musicnya-home></musicnya-home>`,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RemoteEntryComponent {}

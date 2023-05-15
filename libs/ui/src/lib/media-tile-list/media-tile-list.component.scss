@@ -25,5 +25,10 @@ drag-scroll {
       min-width: 8rem;
       max-width: 10rem;
     }
+
+    #artists,
+    #title {
+      cursor: pointer !important;
+    }
   }
 }

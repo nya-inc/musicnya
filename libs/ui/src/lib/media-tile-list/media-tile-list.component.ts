@@ -37,6 +37,7 @@ import { DragScrollModule } from 'ngx-drag-scroll';
           mediaTitle="Test Album"
           [artists]="['guy']"
           [showArtists]="true"
+          artworkRouterLink="/search"
           source="https://upload.wikimedia.org/wikipedia/en/f/f8/The_Strokes_-_The_New_Abnormal.png"
           [hoverUnderline]="true"
         ></ui-album-tile-large>

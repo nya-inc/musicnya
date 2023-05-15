@@ -1,4 +1,5 @@
 import {
+  AfterContentInit,
   AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -17,7 +18,7 @@ import { NgScrollbar, NgScrollbarModule } from 'ngx-scrollbar';
 import { filter, map, Subscription, tap } from 'rxjs';
 import { BaseComponent } from '@nyan-inc/core';
 import { DrawerToggleDirective } from '../directives/drawer-toggle.directive';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'ui-drawer',
@@ -58,7 +59,7 @@ import { NavigationEnd, Router } from '@angular/router';
         </div>
         <div class="ui-drawer-footer">
           <!-- TODO: move this out of library -->
-          <ng-scrollbar class="drawer-scroller">
+          <ng-scrollbar #scrollbar class="drawer-scroller">
             <div id="footer-wrapper">
               <ng-content select="[footer]"></ng-content>
             </div>
@@ -80,27 +81,12 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./drawer.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DrawerComponent implements OnDestroy, AfterViewInit {
+export class DrawerComponent implements OnDestroy, AfterContentInit {
   constructor(
     public reference: ElementRef,
     private changeReference: ChangeDetectorRef,
     private router: Router
-  ) {
-    this.subs.add(
-      this.router.events
-        .pipe(
-          filter(
-            (event): event is NavigationEnd => event instanceof NavigationEnd
-          ),
-          filter<NavigationEnd>(() => !!this.scrollbar),
-          map<NavigationEnd, void>(() => {
-            console.log(this.scrollbar);
-            this.scrollbar.scrollTo({ top: 0, duration: 500 });
-          })
-        )
-        .subscribe()
-    );
-  }
+  ) {}
 
   _collapsed = true;
   _offset = 1;
@@ -114,18 +100,28 @@ export class DrawerComponent implements OnDestroy, AfterViewInit {
     descendants: true,
   })
   items!: QueryList<BaseComponent>;
-  @ContentChild(NgScrollbar, { static: true }) scrollbar!: NgScrollbar;
+  @ViewChild('scrollbar') scrollbar!: NgScrollbar;
   @ContentChild(DrawerToggleDirective)
   drawerToggle!: DrawerToggleDirective;
   _drawerItems: Array<BaseComponent> = [];
   subs: Subscription = new Subscription();
 
-  ngAfterViewInit(): void {
+  ngAfterContentInit(): void {
     this._drawerItems = [...this.items];
-    this._collapsed = false;
-    this._collapsed = true;
 
-    this.changeReference.markForCheck();
+    this.subs.add(
+      this.router.events
+        .pipe(
+          filter(
+            (event): event is NavigationStart =>
+              event instanceof NavigationStart
+          ),
+          map<NavigationStart, void>(async () => {
+            await this.scrollbar.scrollTo({ top: 0, duration: 500 });
+          })
+        )
+        .subscribe()
+    );
 
     this.subs.add(
       this.drawerToggle.drawerOpen$
@@ -139,6 +135,7 @@ export class DrawerComponent implements OnDestroy, AfterViewInit {
     for (const item of this._drawerItems) {
       item.setStyle('span', 'opacity', this.collapsed ? '0' : '1');
       item.setStyle('#baseComponent', 'width', this.collapsed ? '30% ' : '90%');
+      this.changeReference.markForCheck();
     }
 
     this.subs.add(
@@ -180,7 +177,7 @@ export class DrawerComponent implements OnDestroy, AfterViewInit {
           ).parentElement?.id.includes('footer-wrapper')
         ) {
           this._collapsed
-            ? item.setStyle('self, button', 'width', '27.5%')
+            ? item.setStyle('self, button', 'width', '60%')
             : item.setStyle('self, button', 'width', '90%');
         } else {
           item.setStyle(
